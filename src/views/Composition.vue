@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-<!--    <h3>You have {{todosCount}} todos</h3>-->
+    <h3>You have {{todosCount}} todos</h3>
     <div>
       <input type="text" v-model="newTodoName" @keyup.enter="addTodo" placeholder="Add a todo">
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 export default {
   setup() {
     let newTodoName = ref('')
@@ -26,6 +26,10 @@ export default {
 
     ])
     const swearwords = ['fart', 'butt hair', 'willy']
+
+    let todosCount = computed(() => {
+      return todos.value.length
+    })
 
     function addTodo() {
       let newTodo = {
@@ -45,6 +49,8 @@ export default {
       todos,
       addTodo,
       deleteTodo,
+      todosCount,
+
     }
   }
 
