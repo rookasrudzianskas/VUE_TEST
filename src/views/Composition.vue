@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 export default {
   setup() {
     let newTodoName = ref('')
@@ -43,6 +43,13 @@ export default {
             function deleteTodo(index) {
                   todos.value.splice(index, 1)
             }
+
+            watch(newTodoName, (newValue) => {
+              if(swearwords.includes(newValue.toLowerCase())) {
+                      this.newTodoName = ''
+                      alert("You must never say " + newValue + '!')
+                    }
+            })
 
     return {
       newTodoName,
