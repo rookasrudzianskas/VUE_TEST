@@ -21,10 +21,10 @@
 import { ref, computed, watch, reactive } from "vue"
 export default {
   setup() {
-    let newTodoName = ref('')
-    let todos = ref([
-
-    ])
+    // let newTodoName = ref('')
+    // let todos = ref([
+    //
+    // ])
 
     let data = reactive({
       newTodoName: '',
@@ -49,16 +49,17 @@ export default {
                   data.todos.splice(index, 1)
             }
 
-            watch(newTodoName, (newValue) => {
-              if(swearwords.includes(newValue.toLowerCase())) {
-                      newTodoName.value = ''
-                      alert("You must never say " + newValue + '!')
-                    }
+            watch(data, (newValue) => {
+              console.log(newValue)
+              if(swearwords.includes(newValue.newTodoName.toLowerCase())) {
+                      alert("You must never say " + newValue.newTodoName + '!')
+                data.newTodoName = ''
+
+              }
             })
 
     return {
-      newTodoName,
-      todos,
+
       addTodo,
       deleteTodo,
       todosCount,
