@@ -3,12 +3,12 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <h3>You have {{todosCount}} todos</h3>
     <div>
-      <input type="text" v-model="newTodoName" @keyup.enter="addTodo" placeholder="Add a todo">
+      <input type="text" v-model="data.newTodoName" @keyup.enter="addTodo" placeholder="Add a todo">
     </div>
 
     <div>
       <ul>
-        <li v-for="(todo, index) in todos" :key="todo.id">
+        <li v-for="(todo, index) in data.todos" :key="todo.id">
           <span>{{ todo.name }}</span>
           <button @click="deleteTodo(index)">X</button>
         </li>
@@ -18,35 +18,40 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue"
+import { ref, computed, watch, reactive } from "vue"
 export default {
   setup() {
     let newTodoName = ref('')
     let todos = ref([
 
     ])
+
+    let data = reactive({
+      newTodoName: '',
+      todos: [],
+    })
     const swearwords = ['fart', 'butt hair', 'willy']
 
     let todosCount = computed(() => {
-      return todos.value.length
+      return data.todos.length
     })
 
     function addTodo() {
       let newTodo = {
               id: Date.now(),
-              name: newTodoName.value
+              name: data.newTodoName
             }
-            todos.value.push(newTodo)
-            newTodoName.value = ''
+            data.todos.push(newTodo)
+            data.newTodoName = ''
             }
 
             function deleteTodo(index) {
-                  todos.value.splice(index, 1)
+                  data.todos.splice(index, 1)
             }
 
             watch(newTodoName, (newValue) => {
               if(swearwords.includes(newValue.toLowerCase())) {
-                      this.newTodoName = ''
+                      newTodoName.value = ''
                       alert("You must never say " + newValue + '!')
                     }
             })
@@ -57,6 +62,7 @@ export default {
       addTodo,
       deleteTodo,
       todosCount,
+      data,
 
     }
   }
