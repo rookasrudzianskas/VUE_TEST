@@ -1,5 +1,6 @@
 # vue-options-composition
 
+Link to the project -> https://rookas-todo-app.netlify.app/#/
 ## Project setup
 ```
 npm install
